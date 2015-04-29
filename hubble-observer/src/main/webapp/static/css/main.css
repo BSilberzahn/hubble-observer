@@ -1,0 +1,30 @@
+
+.starter-template {
+    text-align: center;
+}
+
+.super-boder {
+   border: 5px solid black;
+}
+
+div.table-container {
+        width: 95%;
+        margin: auto;
+}
+td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+.underline
+{
+    text-decoration: underline;
+} 
+
+body 
+{ 
+	overflow-y:scroll;
+	font-size: 140%; 
+}
