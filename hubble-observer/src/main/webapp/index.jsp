@@ -8,8 +8,9 @@
 			<div class="form-group">
 				<label for="projectName">Nom du projet </label> <input type="text"
 					id="projectName" class="form-control" placeholder="nom"> <a
-					class="btn btn-lg btn-primary" href="addFlowPage.jsp" id="validBtn"
+					class="btn btn-lg btn-primary"  id="validBtn" 
 					role="button">&raquo; Valider ! &laquo;</a>
+					<!-- href="page2.html" -->
 			</div>
 		</form>
 		</p>
@@ -18,7 +19,6 @@
 <p>
 	<a href="webapi/myresource">Jersey resource</a>
 <div class="container">
-	<!-- Example row of columns -->
 	<div class="row">
 		<div class="col-md-6">
 			<h2>HubbleReminder</h2>
@@ -58,3 +58,4 @@
 </div>
 
 <jsp:include page="static/html/footer.html" />
+<script type="text/javascript" src="static/js/page1.js"></script>

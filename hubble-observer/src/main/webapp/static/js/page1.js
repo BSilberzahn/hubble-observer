@@ -1,13 +1,32 @@
-/** bouton Email **/
-$("#emailBtn").click(function() {
-	var txt = $("#inputEmail").val();
-	addToList( txt );
-	$("#inputEmail").val("");
+var projectName = "";
+var emailArray = new Array(); 
+
+$( document ).ready(function() {  
+	projectName = "";
+	emailArray = new Array();
 });
 
+
+/** bouton Email **/
+$("#emailBtn").click(function() {
+	var mail = $("#inputEmail").val();
+	if(mail != "")
+	{
+		addToList( mail );
+		emailArray[emailArray.length] = mail;
+		$("#inputEmail").val("");
+	}
+});
+
+/** bouton ProjectName **/
 $("#validBtn").click(function() {
-	var name = $("#projectName").val();
-	alert("coucou "+name);
+	projectName = $("#projectName").val();
+	if(emailArray.length != 0 && projectName != "")
+	{
+		window.location.href = "page2.jsp";
+	}else{
+		alert("Au moins une adresse mail et un nom de projet doivent être entré");
+	}
 });
 
 
