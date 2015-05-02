@@ -1,14 +1,11 @@
 package pfe.bouygues.construction.servlet;
 
-import java.sql.Connection;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import pfe.bouygues.construction.DbConnection;
+import pfe.bouygues.construction.XmlDocument;
 
 /**
  * 
@@ -23,10 +20,9 @@ public class ContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		logger.debug("context Initialized");
 		
-		//exemple de connexion a la base (voir la classe Sql.java a adapter)
-		Connection conn = DbConnection.getConnection();
+		DbConnection.getConnection();
+		XmlDocument.getDocument();
 		
-		//TODO charger le xml, le parser et le mettre en base
 	}
 	
 	@Override
