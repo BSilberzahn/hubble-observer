@@ -1,11 +1,9 @@
-var projectName = "";
 var emailArray = new Array(); 
 
 $( document ).ready(function() {  
 	projectName = "";
 	emailArray = new Array();
 });
-
 
 /** bouton Email **/
 $("#emailBtn").click(function() {
@@ -18,11 +16,21 @@ $("#emailBtn").click(function() {
 	}
 });
 
-/** bouton ProjectName **/
+/** bouton validation **/
 $("#validBtn").click(function() {
 	projectName = $("#projectName").val();
 	if(emailArray.length != 0 && projectName != "")
 	{
+		Cookies.set('projectName', projectName);
+		
+		var jsonCookie ="[";
+		$.each( emailArray, function( key, value ) {
+			jsonCookie += value+",";
+		});
+		jsonCookie = jsonCookie.substring(0,jsonCookie.length-1);
+		jsonCookie +="]";
+		Cookies.set('email', jsonCookie);
+		
 		window.location.href = "page2.jsp";
 	}else{
 		alert("Au moins une adresse mail et un nom de projet doivent être entré");

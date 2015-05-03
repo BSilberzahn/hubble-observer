@@ -10,7 +10,8 @@
 				points de contrôles techniques sous l'onglet « DTech ». En cochant
 				la case à gauche des jalons, vous recevrez l'ensemble des fiches de
 				contrôle qui les concernent aux dates renseignées pour ces jalons,
-				dans les champs de droite</p>
+				dans les champs de droite.</p><a class="btn btn-lg btn-primary" id="validBtn" role="button">&raquo;
+					suivant &laquo;</a>
 		</div>
 	</div>
 	<div class="panel panel-default">
@@ -24,11 +25,11 @@
 
 	<div class="row">
 		<div class="col-md-6">
-			<div id="savAccordion"></div>
+			<div id="dtechAccordion"></div>
 		</div>
 
 		<div class="col-md-6">
-			<div id="dtechAccordion"></div>
+			<div id="savAccordion"></div>
 		</div>
 	</div>
 </div>

@@ -1,50 +1,56 @@
-var projectName = "";
-var emailArray = new Array(); 
 
 $( document ).ready(function() 
 		{    
-	var obj = ajaxRequest();
-	var json = jQuery.parseJSON(obj);
-	var savHtml=null,dtechHtml=null;
-	$.each(json,function()
-	{
-		if(this.name == "sav")
-		{
-			savHtml = accordion(this.data);
-		}
-		else if(this.name == "dtech")
-		{
-			dtechHtml = accordion(this.data);
+	$.ajax({
+		url: 'webapi',
+		data: data,
+		dataType: 'json',
+		success: function(obj) {
+			alert(obj);
+			var json = jQuery.parseJSON(obj);
+			var savHtml=null,dtechHtml=null;
+			$.each(json,function()
+			{
+				if(this.name == "sav")
+				{
+					savHtml = accordion(this.data);
+				}
+				else if(this.name == "dtech")
+				{
+					dtechHtml = accordion(this.data);
+				}
+			});
+
+			$("#savAccordion").append(savHtml);
+			$("#dtechAccordion").append(dtechHtml);
+
+			$("#savAccordion" ).accordion({
+				heightStyle: "content",
+				collapsible: true
+			});
+
+			$("#dtechAccordion" ).accordion({
+				heightStyle: "content",
+				collapsible: true
+			});
+
+			$( ".localisationAccordion" ).accordion({
+				heightStyle: "content",
+				collapsible: true
+			});
+
+			$( ".datepicker" ).datepicker({
+				showOn: "button",
+				buttonImage: "static/images/calendar2.png",
+				buttonImageOnly: true,
+				buttonText: "Select date",
+				changeMonth: true,
+				changeYear: true,
+				dateFormat:"dd/mm/yy"
+			});
 		}
 	});
 
-	$("#savAccordion").append(savHtml);
-	$("#dtechAccordion").append(dtechHtml);
-	
-	$("#savAccordion" ).accordion({
-		heightStyle: "content",
-		collapsible: true
-	});
-	
-	$("#dtechAccordion" ).accordion({
-		heightStyle: "content",
-		collapsible: true
-	});
-	
-	$( ".localisationAccordion" ).accordion({
-		heightStyle: "content",
-		collapsible: true
-	});
-
-	$( ".datepicker" ).datepicker({
-		showOn: "button",
-		buttonImage: "static/images/calendar2.png",
-		buttonImageOnly: true,
-		buttonText: "Select date",
-		changeMonth: true,
-	    changeYear: true,
-	    dateFormat:"dd/mm/yy"
-	});
 });
 
 function accordion(json)
@@ -71,7 +77,7 @@ function accordion(json)
 			html += "</div></div>";
 				});
 		html += "</div></div>";
-	});
+			});
 	return html;
 }
 
@@ -86,10 +92,18 @@ function ajaxRequest()
 	return JSON.stringify(yourObject);
 }
 
+$("#validBtn").click(function() {
+
+	window.location.href = "page3.jsp";
+});
+
+
+
+
 //$(function() {
-//	var dateDDMMYYYRegex = '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)dd$';
-//	if($( ".datepicker" ).val().match(dateDDMMYYYRegex))
-//	{
-//		alert("ok");
-//	}
+//var dateDDMMYYYRegex = '^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)dd$';
+//if($( ".datepicker" ).val().match(dateDDMMYYYRegex))
+//{
+//alert("ok");
+//}
 //});

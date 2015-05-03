@@ -7,17 +7,15 @@
 		<form class="form-inline">
 			<div class="form-group">
 				<label for="projectName">Nom du projet </label> <input type="text"
-					id="projectName" class="form-control" placeholder="nom"> <a
-					class="btn btn-lg btn-primary"  id="validBtn" 
-					role="button">&raquo; Valider ! &laquo;</a>
-					<!-- href="page2.html" -->
+					id="projectName" class="form-control" placeholder="nom">
+				<!-- href="page2.html" -->
 			</div>
 		</form>
 		</p>
 	</div>
 </div>
 <p>
-	<a href="webapi/myresource">Jersey resource</a>
+	<!-- 	<a href="webapi/myresource">Jersey resource</a> -->
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
@@ -55,6 +53,12 @@
 			</ul>
 		</div>
 	</div>
+	<div class="row">
+			<div class="col-md-offset-11 col-md-1">
+				<a class="btn btn-lg btn-primary" id="validBtn" role="button">&raquo;
+					suivant &laquo;</a>
+			</div>
+		</div>
 </div>
 
 <jsp:include page="static/html/footer.html" />
