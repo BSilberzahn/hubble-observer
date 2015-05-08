@@ -24,7 +24,7 @@ import pfe.bouygues.construction.DataUtil.Constraint;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("webapi")
+@Path("/")
 public class MyResource {
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
