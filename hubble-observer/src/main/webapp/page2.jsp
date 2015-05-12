@@ -17,8 +17,8 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="row">
-				<h3 class="col-md-offset-3 col-md-3">SAV</h3>
 				<h3 class="col-md-offset-3 col-md-3">DTech</h3>
+				<h3 class="col-md-offset-3 col-md-3">SAV</h3>
 			</div>
 		</div>
 	</div>

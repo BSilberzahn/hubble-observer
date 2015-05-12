@@ -1,21 +1,20 @@
 
 $( document ).ready(function() 
-		{    
+{    
 	$.ajax({
 		url: 'webapi',
-		data: data,
+		type:'GET',
 		dataType: 'json',
-		success: function(obj) {
-			alert(obj);
-			var json = jQuery.parseJSON(obj);
+		success: function(json) 
+		{
 			var savHtml=null,dtechHtml=null;
 			$.each(json,function()
 			{
-				if(this.name == "sav")
+				if(this.name == "SAV")
 				{
 					savHtml = accordion(this.data);
 				}
-				else if(this.name == "dtech")
+				else if(this.name == "DTECH")
 				{
 					dtechHtml = accordion(this.data);
 				}
@@ -50,7 +49,6 @@ $( document ).ready(function()
 			});
 		}
 	});
-
 });
 
 function accordion(json)
@@ -60,19 +58,19 @@ function accordion(json)
 	$.each(json,function()
 			{
 		html += "<h3>"+this.name+"</h3><div><div class=\"localisationAccordion\">";
-//		console.log(this);
+		console.log(this);
 
 		//localisation
 		$.each(this.data,function()
 				{
 			html += "<h3>"+this.name+"</h3><div><div class=\"row\" \"form-group\">";
-//			console.log(this);
+			console.log(this);
 
 			//jalon
 			$.each(this.data,function()
 					{
 				html += "<form><div class=\"row\"><div class=\"col-md-5 checkbox\"><label><input type=\"checkbox\" value=\"\">"+this.name+"</label></div><div class=\"col-md-7\"><input type=\"text\" placeholder=\"jj/mm/aaaa\" class=\"datepicker\"></div></div></form>";//<div class=\"col-md-6\">
-//				console.log(this);
+				console.log(this);
 					});
 			html += "</div></div>";
 				});
