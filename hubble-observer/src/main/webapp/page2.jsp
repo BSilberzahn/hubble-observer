@@ -1,15 +1,16 @@
+<%@ page pageEncoding="UTF-8"%>
 <jsp:include page="static/html/header.html" />
 
 <div class="container">
 
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<p>Vous pouvez choisir ci-dessous les fiches de contrôles
-				auxquelles vous souhaitez vous abonner. Elles sont classées par
-				domaines : les prescriptions Hubble sous l'onglet « SAV » et les
-				points de contrôles techniques sous l'onglet « DTech ». En cochant
-				la case à gauche des jalons, vous recevrez l'ensemble des fiches de
-				contrôle qui les concernent aux dates renseignées pour ces jalons,
+			<p>Vous pouvez choisir ci-dessous les fiches de contrÃ´les
+				auxquelles vous souhaitez vous abonner. Elles sont classÃ©es par
+				domaines : les prescriptions Hubble sous l'onglet Â«Â SAVÂ Â» et les
+				points de contrÃ´les techniques sous l'onglet Â«Â DTechÂ Â». En cochant
+				la case Ã  gauche des jalons, vous recevrez l'ensemble des fiches de
+				contrÃ´le qui les concernent aux dates renseignÃ©es pour ces jalons,
 				dans les champs de droite.</p><a class="btn btn-lg btn-primary" id="validBtn" role="button">&raquo;
 					suivant &laquo;</a>
 		</div>

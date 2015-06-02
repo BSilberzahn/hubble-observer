@@ -23,13 +23,14 @@ $("#validBtn").click(function() {
 	{
 		Cookies.set('projectName', projectName);
 		
-		var jsonCookie ="[";
+		var jsonCookie ="";var i=1;
 		$.each( emailArray, function( key, value ) {
-			jsonCookie += value+",";
+			jsonCookie += "email."+i+"="+value+"&";
+			i++;
 		});
 		jsonCookie = jsonCookie.substring(0,jsonCookie.length-1);
-		jsonCookie +="]";
 		Cookies.set('email', jsonCookie);
+		Cookies.set('nameProject', "name="+projectName);
 		
 		window.location.href = "page2.jsp";
 	}else{

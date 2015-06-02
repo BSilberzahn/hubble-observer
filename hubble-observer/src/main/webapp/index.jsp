@@ -1,8 +1,9 @@
+<%@ page pageEncoding="UTF-8"%>
 <jsp:include page="static/html/header.html" />
 
 <div class="jumbotron">
 	<div class="container starter-template">
-		<h3>Créer un nouveau projet HubbleReminder</h3>
+		<h3>CrÃ©er un nouveau projet HubbleReminder</h3>
 		<p class="lead">
 		<form class="form-inline">
 			<div class="form-group">
@@ -22,9 +23,9 @@
 			<h2>HubbleReminder</h2>
 			<p>
 				Un lien pour installer votre nouveau calendrier de projet vous sera
-				envoyé par email aux adresses renseignées ci-dessus. Ce calendrier
+				envoyÃ© par email aux adresses renseignÃ©es ci-dessus. Ce calendrier
 				Outlook aura pour nom: <b>HubbleReminder - Nom du projet</b>. Vous
-				pourrez y retrouver les jalons aux dates complétées en page
+				pourrez y retrouver les jalons aux dates complÃ©tÃ©es en page
 				suivante.
 			</p>
 			<p>Bonne continuation sur HubbleReminder !</p>
