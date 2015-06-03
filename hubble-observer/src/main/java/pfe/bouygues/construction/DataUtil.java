@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,20 @@ public class DataUtil {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
+	
+	private static Map<String, Project> projects = new HashMap<String, Project>();
+	//TODO
+	public static void addProject(Project project){
+		DataUtil.projects.put(project.getName(), project);
+	}
+	
+	//TODO
+	public static Project getProject(String name){
+		return DataUtil.projects.get(name);
+	}
+	
+	
+	
 	//TODO
 	public void createProject(String name, HashMap<String, String> markers) {
 		Connection conn = DbConnection.getConnection(); 

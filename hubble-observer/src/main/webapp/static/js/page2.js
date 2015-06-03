@@ -149,7 +149,7 @@ $("#validBtn").click(function() {
 	var data = nameProject+"&"+email+"&"+param;
 	
 	$.ajax({
-		url : 'webapi',   /** <- ICI **/
+		url : 'newproject',   /** <- ICI **/
 		type : 'POST',
 		data : data,
 		dataType : 'html'

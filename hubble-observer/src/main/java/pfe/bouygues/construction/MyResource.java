@@ -3,15 +3,26 @@ package pfe.bouygues.construction;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map.Entry;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +41,7 @@ public class MyResource {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * récupère la liste des jalons
+     * envoie la liste des jalons
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -48,13 +59,30 @@ public class MyResource {
     @Path("{projet}.ics")
     @Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
     public String getIcal(@PathParam("projet") String projetName) {
+    	Project p = DataUtil.getProject(projetName);
+    	if(p == null)
+    		throw new WebApplicationException(404);
+    	
     	StringWriter w = new StringWriter();
 		Ical cal = new Ical("hubble-reminder", "bouygues");
-		cal.addEvent(new GregorianCalendar(2015,4,23), new GregorianCalendar(2015,4,23), "liste a checker du projet " + projetName, "contenu de la liste");
+		for(Entry<Integer, ControlFile> doc : XmlDocument.getDocument().entrySet()){
+			ControlFile f = doc.getValue();
+			Calendar date = p.getDate(f.getMarker());
+			if(date != null){
+				Calendar d = new GregorianCalendar();
+				d.setTime(date.getTime());
+				d.add(Calendar.DAY_OF_MONTH, f.getOfset());
+				cal.addEvent(d, d, f.getName(),
+						"contrôler la fiche : " + f.getName() + "\\ndu lot " + f.getBatch());
+			}
+		}
+		
+		
 		try {
 			cal.print(w);
 		} catch (IOException e) {
 			logger.error("Can't write the icalendar", e);
+			throw new WebApplicationException(500);
 		}
         return w.toString();
     }
@@ -95,4 +123,5 @@ public class MyResource {
     	}
     	return array;
     }
+    
 }
