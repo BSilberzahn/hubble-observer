@@ -12,6 +12,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import pfe.bouygues.construction.DataUtil;
 import pfe.bouygues.construction.Project;
+import pfe.bouygues.construction.SendMailTLS;
 
 /**
  * Servlet implementation class ProjectServlet
@@ -54,6 +57,8 @@ public class ProjectServlet extends HttpServlet {
     			p.addDate(i.getValue(), dates.get(i.getKey()));
     	}
     	DataUtil.addProject(p);
+    	
+
     	
     	System.out.println("name : " + p.getName());
     	System.out.println("mails :");

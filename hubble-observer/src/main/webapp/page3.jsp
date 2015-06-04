@@ -8,6 +8,7 @@
 			choix ont été enregistrés et un email contenant le lien
 			d'installation de votre calendrier de projet a été envoyé aux
 			adresses suivantes :</div>
+			<div id="list" class="panel-body"></div>
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-body">
@@ -35,3 +36,4 @@
 </div>
 
 <jsp:include page="static/html/footer.html" />
+<script type="text/javascript" src="static/js/page3.js"></script>

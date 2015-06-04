@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fiches>
+		<fiche num="001" fichier="01.SousSol-Infra\Canalisations_sous_dallages\001.Dimensionnement_des_Reseaux_sous_dallage.pdf">
+			<service>SAV</service>
+			<objet>Dimensionnement des Réseaux sous dallage</objet>
+			<localisation>Sous Sols / Infrastructure</localisation>
+			<emplacement>Cuvettes WC</emplacement>
+			<lot>Canalisation sous dallage</lot>
+			<jalon>Coulage du dallage ou Dimensionnement des réseaux</jalon>
+			<delai>0</delai>
+			<domaine>Canalisation</domaine>
+			<remarque>0</remarque>
+		</fiche>
+		<fiche num="002" fichier="01.SousSol-Infra\Canalisations_sous_dallages\002.Inspection_Camera.pdf">
+			<service>SAV</service>
+			<objet>Inspection Caméra</objet>
+			<localisation>Sous Sols / Infrastructure</localisation>
+			<lot>Canalisation sous dallage</lot>
+			<jalon>Mise en eau des réseaux</jalon>
+			<delai>-5</delai>
+			<domaine>Canalisation</domaine>
+			<remarque>0</remarque>
+		</fiche>
+		<fiche num="003" fichier="01.SousSol-Infra\Canalisations_sous_dallages\003.Mise_en_Oeuvre_des_reseaux_sous_dallage.pdf">
+			<service>SAV</service>
+			<objet>Mise en Oeuvre des réseaux sous dallage</objet>
+			<localisation>Sous Sols / Infrastructure</localisation>
+			<lot>Canalisation sous dallage</lot>
+			<jalon>Mise en Oeuvre des réseaux sous dallage</jalon>
+			<delai>0</delai>
+			<domaine>Canalisation</domaine>
+			<remarque>0</remarque>
+		</fiche>
+		<fiche num="004" fichier="01.SousSol-Infra\GrosOeuvre-Plomberie\004.Cunettes_perimetriques_interieures.pdf">
+			<service>SAV</service>
+			<objet>Cunettes périmetriques intérieures, sur voiles périmétriques, contre terre, à chaque niveau de parking, raccordées au reseau EU hydrocarbure</objet>
+			<localisation>Sous Sols / Infrastructure</localisation>
+			<lot>Gros Oeuvre - Plomberie</lot>
+			<jalon>Etude et Réalisation des niveaux d'infrastructure</jalon>
+			<delai>0</delai>
+			<domaine>Canalisation</domaine>
+			<remarque>0</remarque>
+		</fiche>
+</fiches>
