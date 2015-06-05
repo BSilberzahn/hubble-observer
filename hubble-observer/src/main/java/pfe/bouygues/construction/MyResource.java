@@ -80,6 +80,7 @@ public class MyResource {
 		
 		try {
 			cal.print(w);
+			cal.write();
 		} catch (IOException e) {
 			logger.error("Can't write the icalendar", e);
 			throw new WebApplicationException(500);

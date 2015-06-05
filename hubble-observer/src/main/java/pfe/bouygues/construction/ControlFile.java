@@ -19,7 +19,7 @@ public class ControlFile {
 	public ControlFile(int number, String name, String path){
 		this.number = number;
 		this.name = name;
-		this.file = new File("fiches" + File.pathSeparator + path);
+		this.file = new File("fiches" + File.separator + path);
 	}
 	
 	public String getField(Field f){

@@ -1,35 +1,45 @@
 package pfe.bouygues.construction;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.mail.util.ByteArrayDataSource;
 
 public class Email {
 
 private static String USER_NAME = "projet.ecom.l3";  // GMail user name (just the part before "@gmail.com")
 private static String PASSWORD = "projetecom1"; // GMail password
 
-private static String RECIPIENT = "benjamin.silberzahn@gmail.com";
 
 public static void main(String[] args) {
-    String from = USER_NAME;
-    String pass = PASSWORD;
-    String[] to = { RECIPIENT }; // list of recipient email addresses
-    String subject = "Java send mail example";
-    String body = "hi ....,!";
+	
+	String RECIPIENT = "benjamin.silberzahn@gmail.com";
 
-    sendFromGMail(from, pass, to, subject, body);
+    String[] to = { RECIPIENT }; // list of recipient email addresses
+
+//    sendFromGMail(to, "");
 }
 
-private static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
-    Properties props = System.getProperties();
+public static void sendFromGMail(String[] to, ArrayList<File> pathList) {
+    String from = USER_NAME;
+	String pass = PASSWORD;
+	String subject = "HubbleReminder - Calendrier";
+    String body = "";
+	
+	Properties props = System.getProperties();
   String host = "smtp.gmail.com";
 
     props.put("mail.smtp.starttls.enable", "true");
 
     props.put("mail.smtp.ssl.trust", host);
-    props.put("mail.smtp.user", from);
+    props.put("mail.smtp.user", "HubbleReminder@gmail.com");
     props.put("mail.smtp.password", pass);
     props.put("mail.smtp.port", "587");
     props.put("mail.smtp.auth", "true");
@@ -60,6 +70,47 @@ private static void sendFromGMail(String from, String pass, String[] to, String 
         message.setText(body);
 
 
+        
+        MimeBodyPart m2=new MimeBodyPart();
+		FileDataSource source = new FileDataSource("fiches/calendar.ics");
+		m2.setDataHandler(new DataHandler(source));
+		m2.setFileName(source.getName());
+		Multipart mp = new MimeMultipart();
+
+	    mp.addBodyPart(m2);
+	    
+	    
+	    for (File file : pathList) {
+	    	System.out.println(file.getPath());
+//	    	MimeBodyPart m3=new MimeBodyPart();
+//			FileDataSource source2 = new FileDataSource(file.getPath());
+//			m3.setDataHandler(new DataHandler(source2));
+//			m3.setFileName(source2.getName());
+	    	
+	    	FileDataSource source2 = new FileDataSource(file.getPath());
+	    	
+	    	MimeBodyPart attachment= new MimeBodyPart();
+	        ByteArrayDataSource ds = null;
+			try {
+				ds = new ByteArrayDataSource(new FileInputStream(file.getPath()), "application/pdf");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+	        attachment.setDataHandler(new DataHandler(ds));
+	        attachment.setFileName(file.getPath());
+		    mp.addBodyPart(attachment);
+		}
+	    
+	    message.setContent(mp);
+        
+        
+        
+        
+        
         Transport transport = session.getTransport("smtp");
 
 
