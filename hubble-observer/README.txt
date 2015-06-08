@@ -1,0 +1,1 @@
+url de connexion: http://localhost:8085/hubbleReminder

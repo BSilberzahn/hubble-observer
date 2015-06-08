@@ -1,6 +1,8 @@
 package pfe.bouygues.construction;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +24,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
 
 import org.json.JSONArray;
@@ -37,33 +42,33 @@ import pfe.bouygues.construction.DataUtil.Constraint;
  */
 @Path("/")
 public class MyResource {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /**
-     * envoie la liste des jalons
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public String getJson() {
-    	return this.buildHierarchcalJson(Field.service, Field.batch, Field.domain, Field.marker).toString();
-    }
-    
-    
-    /**
-     * renvoi le calendrier corespondant au projet
-     *
-     * @return le calendrier au format ical
-     */
-    @GET
-    @Path("{projet}.ics")
-    @Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
-    public String getIcal(@PathParam("projet") String projetName) {
-    	Project p = DataUtil.getProject(projetName);
-    	if(p == null)
-    		throw new WebApplicationException(404);
-    	
-    	StringWriter w = new StringWriter();
+	/**
+	 * envoie la liste des jalons
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String getJson() {
+		return this.buildHierarchcalJson(Field.service, Field.batch, Field.domain, Field.marker).toString();
+	}
+
+
+	/**
+	 * renvoi le calendrier corespondant au projet
+	 *
+	 * @return le calendrier au format ical
+	 */
+	@GET
+	@Path("{projet}.ics")
+	@Produces(MediaType.TEXT_PLAIN + ";charset=utf-8")
+	public String getIcal(@PathParam("projet") String projetName) {
+		Project p = DataUtil.getProject(projetName);
+		if(p == null)
+			throw new WebApplicationException(404);
+
+		StringWriter w = new StringWriter();
 		Ical cal = new Ical("hubble-reminder", "bouygues");
 		for(Entry<Integer, ControlFile> doc : XmlDocument.getDocument().entrySet()){
 			ControlFile f = doc.getValue();
@@ -76,53 +81,65 @@ public class MyResource {
 						"contrôler la fiche : " + f.getName() + "\\ndu lot " + f.getBatch());
 			}
 		}
+		cal.write();
+
+		return "";
+	}
+
+	
+	@GET
+	@Path("{path}.pdf")
+	@Produces("application/pdf")
+	public Response getFile(@PathParam("path") String path) {
+
+		String path2 = path.replaceAll("\\$", "/")+".pdf";
+
+		File file = new File(path2);
+		String tab[] = path2.split("/");
 		
-		
-		try {
-			cal.print(w);
-			cal.write();
-		} catch (IOException e) {
-			logger.error("Can't write the icalendar", e);
-			throw new WebApplicationException(500);
+		ResponseBuilder response = Response.ok((Object) file);
+		response.header("Content-Disposition",
+			"attachment; filename="+tab[tab.length-1]);
+		return response.build();
+ 
+	}
+
+
+	private JSONArray buildHierarchcalJson(Field... hiera){
+		return this.buildHierarchcalJson(new ArrayList<Constraint>(), hiera);
+	}
+
+	private JSONArray buildHierarchcalJson(List<Constraint> cts, Field... hiera){
+		JSONArray array = new JSONArray();
+		DataUtil du = new DataUtil();
+		Collection<String> valList;
+		if(cts.isEmpty()){
+			valList = du.getAllValuesOf(hiera[0]);
+		} else {
+			Constraint[] ctsArray = new Constraint[1];
+			ctsArray = cts.toArray(ctsArray);
+			valList = du.getAllValuesOfWithConstraint(hiera[cts.size()], ctsArray);
 		}
-        return w.toString();
-    }
-    
-    private JSONArray buildHierarchcalJson(Field... hiera){
-    	return this.buildHierarchcalJson(new ArrayList<Constraint>(), hiera);
-    }
-    
-    private JSONArray buildHierarchcalJson(List<Constraint> cts, Field... hiera){
-    	JSONArray array = new JSONArray();
-    	DataUtil du = new DataUtil();
-    	Collection<String> valList;
-    	if(cts.isEmpty()){
-    		valList = du.getAllValuesOf(hiera[0]);
-    	} else {
-    		Constraint[] ctsArray = new Constraint[1];
-    		ctsArray = cts.toArray(ctsArray);
-    		valList = du.getAllValuesOfWithConstraint(hiera[cts.size()], ctsArray);
-    	}
-    	if(!valList.isEmpty()){
-	    	if(cts.size() == hiera.length - 1){
-	    		for(String val : valList){
-	    			JSONObject obj = new JSONObject();
-	        		obj.put("name", val);
-	        		array.put(obj);
-	    		}
-	    	} else {
-	    		for(String val : valList){
-	    			List<Constraint> newCts = new ArrayList<Constraint>(cts);
-	    			JSONObject obj = new JSONObject();
-	        		newCts.add(new Constraint(hiera[cts.size()], val));
-	        		JSONArray subArray = this.buildHierarchcalJson(newCts, hiera);
-	        		obj.put("data", subArray);
-	        		obj.put("name", val);
-	        		array.put(obj);
-	    		}
-	    	}
-    	}
-    	return array;
-    }
-    
+		if(!valList.isEmpty()){
+			if(cts.size() == hiera.length - 1){
+				for(String val : valList){
+					JSONObject obj = new JSONObject();
+					obj.put("name", val);
+					array.put(obj);
+				}
+			} else {
+				for(String val : valList){
+					List<Constraint> newCts = new ArrayList<Constraint>(cts);
+					JSONObject obj = new JSONObject();
+					newCts.add(new Constraint(hiera[cts.size()], val));
+					JSONArray subArray = this.buildHierarchcalJson(newCts, hiera);
+					obj.put("data", subArray);
+					obj.put("name", val);
+					array.put(obj);
+				}
+			}
+		}
+		return array;
+	}
+
 }
